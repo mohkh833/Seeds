@@ -24,6 +24,10 @@ export class UserService {
 		return this.userRepository.findByUserName(username);
 	}
 
+	async findByEmail(email: string): Promise<User> {
+		return this.userRepository.findByEmail(email);
+	}
+
 	async remove(id: number): Promise<User> {
 		return this.userRepository.remove(id);
 	}
@@ -31,4 +35,6 @@ export class UserService {
 	async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
 		return this.userRepository.update(id, updateUserDto);
 	}
+
+	
 }
