@@ -18,6 +18,8 @@ model User {
   password String
   age Int
   sex Boolean
-  refreshToken String
+  refreshToken String?
+  resetToken String?
+  resetTokenExpiry DateTime?
 }
 
