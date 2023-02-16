@@ -1,23 +1,24 @@
-import { Controller } from '@nestjs/common';
-import { Post, Body, Get, Req, UseGuards } from '@nestjs/common/decorators';
+import { Controller, ValidationPipe, Post, Body, Get, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { CreateUserDto } from 'src/user/dto/CreateUserDto';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
 import { RefreshTokenGuard } from 'src/common/guards/refreshToken.guard';
+import { ResetPasswordDto } from './dto/resetPassword.dto';
 
 @Controller('auth')
 export class AuthController {
 	constructor(private authService: AuthService) {}
 
 	@Post('signup')
-	signup(@Body() createUserDto: CreateUserDto) {
+	signup(@Body(ValidationPipe) createUserDto: CreateUserDto) {
+		
 		return this.authService.signUp(createUserDto);
 	}
 
 	@Post('signin')
-	signin(@Body() data: AuthDto) {
+	signin(@Body(ValidationPipe) data: AuthDto) {
 		return this.authService.signIn(data);
 	}
 
@@ -33,5 +34,16 @@ export class AuthController {
 		const userId = req.user['sub'];
 		const refreshToken = req.user['refreshToken'];
 		return this.authService.refreshTokens(userId, refreshToken);
+	}
+
+	@Post('forget-password')
+	forgetPassword(@Body() data ){
+		return  this.authService.sendPasswordResetToken(data.email)
+
+	}
+
+	@Post('reset-password')
+	resetPassword(@Body(ValidationPipe) data:ResetPasswordDto ){
+		return this.authService.resetPassword(data)
 	}
 }
