@@ -31,4 +31,8 @@ export class AuthService {
 	async resetPassword(data: ResetPasswordDto){
 		return this.authRepository.resetPassword(data)
 	}
+	
+	async googleSignIn(user:any){
+		return this.authRepository.googleSignIn(user)
+	}
 }
