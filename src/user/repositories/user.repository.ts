@@ -57,4 +57,8 @@ export class UserRepository {
 			data: updateUserDto
 		});
 	}
+
+	async isFirstUser() : Promise<Boolean> {
+		return await this.prisma.user.count() === 1;
+	}
 }
