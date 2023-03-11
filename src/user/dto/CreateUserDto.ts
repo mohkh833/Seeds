@@ -18,9 +18,11 @@ export class CreateUserDto {
 	public email: string;
 
 	// Validates for an integer
+	@IsOptional()
 	@IsNumber() public age: number;
 
 	// Validates for an integer
+	@IsOptional()
 	@IsBoolean() public sex: boolean;
 
 	@IsString()
@@ -34,8 +36,14 @@ export class CreateUserDto {
 	public refreshToken: string;
 
 	@IsOptional()
+	public verifyToken: string;
+
+	@IsOptional()
 	public resetToken: string;
 
 	@IsOptional()
 	public resetTokenExpiry: Date;
+
+	@IsOptional()
+	public isVerified:boolean
 }

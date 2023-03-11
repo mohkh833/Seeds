@@ -36,5 +36,7 @@ export class UserService {
 		return this.userRepository.update(id, updateUserDto);
 	}
 
-	
+	async isFirstUser() : Promise<Boolean> {
+		return this.userRepository.isFirstUser();
+	}
 }

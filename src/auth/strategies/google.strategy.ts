@@ -19,8 +19,8 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 		const username = emails[0].value.split('@')[0] + '_' + Math.floor(Math.random() * 1000);
         const password = this.generatePassword(username)
 		const user = {
-			provider: 'google',
-			id: id,
+			// provider: 'google',
+			// id: id,
 			email: emails[0].value,
 			name: `${name.givenName} ${name.familyName}`,
 			// picture: photos[0].value,

@@ -7,6 +7,7 @@ import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
 import { RefreshTokenGuard } from 'src/common/guards/refreshToken.guard';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
+import { VerifyEmailDto } from './dto/verifyEmail.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -37,6 +38,16 @@ export class AuthController {
 		const refreshToken = req.user['refreshToken'];
 		const response = await this.authService.refreshTokens(userId, refreshToken);
 		return res.status(response.status).json(response)
+	}
+
+	@Post('verify-email')
+	verifyEmail(@Body(ValidationPipe) data:VerifyEmailDto){
+		return this.authService.verifyEmail(data)
+	}
+
+	@Post('resend-verify-token')
+	resendVerifyToken(@Body() data){
+		return this.authService.resendVerifyToken(data.email)
 	}
 
 	@Post('forget-password')
